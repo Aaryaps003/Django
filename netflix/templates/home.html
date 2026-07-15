@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+      <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#141414;
+            color:white;
+        }
+
+        nav{
+            background:black;
+            padding:20px 50px;
+            display:flex;
+            align-items:center;
+        }
+
+        .logo{
+            color:#e50914;
+            font-size:34px;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+
+        .hero{
+            height:100px;
+            background:linear-gradient(to bottom, rgba(0,0,0,.3), #141414),
+            url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1500&q=80');
+            background-size:cover;
+            display:flex;
+            align-items:end;
+            padding:40px 60px;
+        }
+
+        .hero h1{
+            font-size:48px;
+        }
+
+        .container{
+            padding:30px 50px;
+        }
+
+        h2{
+            margin-bottom:20px;
+        }
+
+        .movies{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:#222;
+            border-radius:8px;
+            overflow:hidden;
+            transition:.3s;
+            cursor:pointer;
+        }
+
+        .card:hover{
+            transform:scale(1.08);
+            box-shadow:0 0 15px rgba(255,255,255,.2);
+        }
+
+        .card img{
+            width:100%;
+            height:320px;
+            object-fit:cover;
+        }
+
+        .info{
+            padding:15px;
+        }
+
+        .info h3{
+            margin-bottom:10px;
+        }
+
+        .genre{
+            color:#b3b3b3;
+            font-size:14px;
+        }
+
+        .year{
+            margin-top:10px;
+            color:#46d369;
+            font-weight:bold;
+        }
+    </style>
+
+</head>
+<body>
+    
+    <nav>
+        <div class="logo">NETFLIX</div>
+    </nav>
+
+    <div class="container">
+
+        <h2>Trending Now</h2>
+
+            <div class="movies">
+
+                {%  for movie in movies  %}
+
+
+            <div class="card">
+            <img src="{{ movie.bannerUrl }}" alt="">
+            <div class="info">
+                <h3>{{movie.name}}</h3>
+                <p class="genre">{{movie.genre}}</p>
+                <p class="year">{{movie.releaseYear}}</p>
+            </div>
+        </div>
+
+                {% endfor %}
+
+            </div>
+
+    </div>
+    
+
+</body>
+</html>
