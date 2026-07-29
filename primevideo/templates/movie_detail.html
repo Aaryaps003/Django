@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }} - Prime Video Clone</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f171e;
+            color: #fff;
+        }
+        .page-header {
+            padding: 24px 40px;
+            background: #131d26;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .back-link {
+            color: #00a8e8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .movie-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding: 40px;
+        }
+        .poster {
+            width: 320px;
+            min-width: 240px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #1f2937;
+        }
+        .poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .details {
+            flex: 1;
+            max-width: 800px;
+        }
+        .details h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+        .details .meta {
+            color: #9ca3af;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .details p {
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+        .details .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 6px;
+            background-color: #00a8e8;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.25s ease;
+        }
+        .details .btn:hover {
+            background-color: #0086b3;
+        }
+        .trailer-container {
+            margin-top: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <a class="back-link" href="{% url 'app:home' %}">&larr; Back to Home</a>
+    </div>
+    <section class="movie-container">
+        <div class="poster">
+            <img src="{{ movie.poster_url|default:'https://via.placeholder.com/320x480?text=No+Image' }}" alt="{{ movie.title }} poster">
+        </div>
+        <div class="details">
+            <h1>{{ movie.title }}</h1>
+            <div class="meta">
+                {{ movie.category }} &bull; {{ movie.release_year }} &bull; Rating: {{ movie.rating }}
+                {% if movie.duration %}&bull; {{ movie.duration }}{% endif %}
+            </div>
+            {% if movie.director %}
+                <div class="meta">Director: {{ movie.director }}</div>
+            {% endif %}
+            {% if movie.cast %}
+                <div class="meta">Cast: {{ movie.cast }}</div>
+            {% endif %}
+            <p>{{ movie.synopsis }}</p>
+            <a class="btn" href="#">Watch Now</a>
+            {% if movie.trailer_embed_url %}
+                <div class="trailer-container">
+                    <iframe width="100%" height="400" src="{{ movie.trailer_embed_url }}" title="{{ movie.title }} trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            {% elif movie.trailer %}
+                <div class="trailer-container">
+                    <iframe width="100%" height="400" src="{{ movie.trailer }}" title="{{ movie.title }} trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>
